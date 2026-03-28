@@ -37,6 +37,7 @@ java-multistage-app/
 ```
 # pom.xml
 
+```
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
@@ -48,39 +49,60 @@ java-multistage-app/
     <artifactId>java-multistage-app</artifactId>
     <version>1.0</version>
 
+    <!-- Spring Boot Parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/>
+    </parent>
+
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
     </properties>
+
+    <!-- ✅ Dependencies MUST be inside project -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
-            <!-- Create executable JAR -->
+            <!-- Spring Boot Plugin (IMPORTANT) -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.example.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
 
 </project>
 
+```
+
 # App.java
 
 ```
 package com.example;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.*;
+
+@SpringBootApplication
+@RestController
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello from Maven Multi-Stage Docker Build!");
+        SpringApplication.run(App.class, args);
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "Hello from Spring Boot Docker!";
     }
 }
 ```
