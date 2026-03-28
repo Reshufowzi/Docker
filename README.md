@@ -143,4 +143,8 @@ java-multistage-app/
 └── src/main/java/com/example/App.java
 ```
 
+```
+mkdir -p src/main/java/com/example && touch src/main/java/com/example/App.java
+```
+
 
