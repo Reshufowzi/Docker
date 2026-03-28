@@ -111,3 +111,36 @@ Stage 2 (Lightweight JDK image)
 Copies only .jar
 Runs the app
 
+# Single-Stage Dockerfile (Java Maven)
+
+```
+FROM maven:3.9.6-eclipse-temurin-17
+
+WORKDIR /app
+
+# Copy project files
+COPY pom.xml .
+COPY src ./src
+
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Run the JAR
+CMD ["java", "-jar", "target/java-multistage-app-1.0.jar"]
+
+```
+
+# Build & Run
+
+```
+docker build -t java-single-stage .
+docker run java-single-stage
+```
+# project structure
+````
+java-multistage-app/
+├── pom.xml
+└── src/main/java/com/example/App.java
+```
+
+
