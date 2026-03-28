@@ -137,7 +137,7 @@ docker build -t java-single-stage .
 docker run java-single-stage
 ```
 # project structure
-````
+```
 java-multistage-app/
 ├── pom.xml
 └── src/main/java/com/example/App.java
